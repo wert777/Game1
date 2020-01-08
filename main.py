@@ -41,9 +41,10 @@ player = pygame.Surface((PLAYER_SIZE, PLAYER_SIZE))
 player.set_colorkey((0, 0, 0))
 pygame.draw.circle(player, (0, 0, 250), (PLAYER_SIZE // 2, PLAYER_SIZE // 2), PLAYER_SIZE // 2)
 pygame.draw.circle(player, (255, 215, 0), (12, 15), 4)
-pygame.draw.circle(player, (100, 100, 100), (28, 15), 4)
+pygame.draw.circle(player, (10, 10, 10), (28, 15), 5)
 pygame.draw.arc(player, (255, 215, 0), (8, 12, 24, 20), 3.6, 6.0, 3)
-pygame.draw.arc(player, (100, 100, 100), (-25, 5, 60, 52), 10.6, 10.0, 4)
+pygame.draw.arc(player, (10, 10, 10), (-25, 5, 66, 90), 13.0, 10.0, 4)
+pygame.draw.arc(player, (10, 10, 10), (5, 19, 30, 20), 3.1, 6.0, 4)
 player_rect = player.get_rect(center=(WIN_WIDTH // 2,WIN_HEIGHT // 2))
 
 run = True
