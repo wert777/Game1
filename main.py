@@ -7,23 +7,23 @@ import numpy
 level = [
     "----------------------------------------------------------------------------------------------------------------------------------",
     "-                                                                                                                                -",
-    "-                                          ------                       -                            -                           -",
-    "-                    -                           --       -                       -                                --            -",
-    "-                    -                                             -                        ---                        -         -",
-    "-                    -             -                 -                       -                                         -         -",
-    "-                    -                                                                                                 -         -",
-    "-                    -                                                                                                -          -",
-    "-                                                                     --             ---                               -         -",
-    "-                                   -                           -                                            -                   -",
-    "-                                         -       ---           ---------      -                              -                  -",
-    "-                                   -             - -           -        -                          -                            -",
-    "-              ---------            -               -                                                  -                         -",
+    "-                                          ------                       -                           ------                       -",
+    "-                    -                           --       -                       -                -      -                      -",
+    "-                    -                                             -                              -  -  -  -                -    -",
+    "-                    -             -                 -                       -                    -        -                     -",
+    "-        -           -                                                                            -  -  -  -                     -",
+    "-                    -                                                                            -   --   -              -      -",
+    "-                                                                     --             ---           -      -            -         -",
+    "-                                   -                           -                                   ------    -                  -",
+    "-         -                                -      ---           ---------      -                              -                  -",
+    "-                                   -             - -           -        -          -                -                           -",
+    "-                 ------            -               -                                                  -                         -",
     "-                                                  -                                                                             -",
-    "-   --------                                       -                                          -                   -              -",
-    "-                                                                      --                                -                       -",
-    "-                     -                            -                     -                                                       -",
-    "-                                                                        -         -                                             -",
-    "-                                  -                                                                          -                  -",
+    "-                                  -                                    --                                -           -          -",
+    "-       -              -                           -                     -              -                                        -",
+    "-                                                                                                                                -",
+    "-                                                           -                                                                    -",
+    "-                -                  -                                            -             -                 -               -",
     "-                                                                                                                                -",
     "----------------------------------------------------------------------------------------------------------------------------------"
 ]
@@ -33,10 +33,10 @@ BG_COLOR = (192, 192, 192)
 BRICK_COLOR_2 = (255, 128, 0)
 BRICK_WIDTH = BRICK_HEIGHT = 30
 BRICK_COLOR = (0, 128, 0)
-FPS = 30
+FPS = 60
 clock = pygame.time.Clock()
 PLAYER_SIZE = 40
-BG_SPEED = 3
+BG_SPEED = 2
 dx = 0
 PLAYER_SPEED = 3
 penalty = 0.0
@@ -74,11 +74,11 @@ text1 = "ИГРАТЬ СНОВА"
 text1_xy = ((WIN_WIDTH - text.size(text1)[0]) // 2,((WIN_HEIGHT + BTN_H) -text.size(text1)[1]) // 2)
 
 result = [WIN_HEIGHT / 2.0]
-yyy = [player_rect.y] * 500
+yyy = [player_rect.y] * 200
 
 
 def audio_callback(indata, frames, time, status):
-    volume = numpy.linalg.norm(indata) * 20
+    volume = numpy.linalg.norm(indata) * 80
     yyy.append(volume)
     yyy.pop(0)
     result[0] = sum(yyy) / len(yyy)
@@ -89,7 +89,7 @@ face(color)
 run = True
 stream = sd.InputStream(callback=audio_callback)
 with stream:
-    while run:    
+    while run:
         for e in pygame.event.get():
             if e.type == pygame.QUIT or e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                 run = False
@@ -107,7 +107,7 @@ with stream:
                         dx = 0
                         player_rect.center = WIN_WIDTH // 2, WIN_HEIGHT // 2
                         result = [WIN_HEIGHT // 2.0]
-                        yyy = [player_rect.y] * 500
+                        yyy = [player_rect.y] * 200
                         color = BLUE
                         face(color)
 
@@ -130,7 +130,6 @@ with stream:
         else:
             if player_rect.x < WIN_WIDTH - PLAYER_SIZE:
                 player_rect.x += PLAYER_SPEED
-        
         color = BLUE
         face(color)
 
@@ -162,7 +161,7 @@ with stream:
             screen.blit(
                 text.render(f"Штрафных очков {round(penalty, 1)}", True, RED, None),
                 ((WIN_WIDTH - text.size(f"Штрафных очков: {round(penalty, 1)}")[0]) // 2,
-                WIN_HEIGHT // 2 - BTN_H))
+                 WIN_HEIGHT // 2 - BTN_H))
 
         pygame.display.set_caption(f'FPS:{round(clock.get_fps(), 2)}')
         pygame.display.update()
